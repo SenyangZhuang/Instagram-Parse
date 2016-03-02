@@ -14,7 +14,7 @@ import Parse
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -26,6 +26,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "https://whispering-garden-18457.herokuapp.com/parse"
             })
         )
+
+        
+        if PFUser.currentUser() != nil {
+            
+            let photoViewNavigationController = storyboard.instantiateViewControllerWithIdentifier("loginNavigationController") as! UINavigationController
+            
+            let uploadPhotoViewNavigationController = storyboard.instantiateViewControllerWithIdentifier("uploadPhotoNavigationController") as! UINavigationController
+            
+            let tabBarController = UITabBarController()
+            tabBarController.viewControllers = [photoViewNavigationController, uploadPhotoViewNavigationController]
+            photoViewNavigationController.tabBarItem.title = "Home"
+            photoViewNavigationController.tabBarItem.image = UIImage(named: "home")
+            uploadPhotoViewNavigationController.tabBarItem.image = UIImage(named: "camera")
+            uploadPhotoViewNavigationController.tabBarItem.title = "Upload"
+            window?.rootViewController = tabBarController
+            window?.makeKeyAndVisible()
+           
+        }else{
+           
+            
+        }
         
         return true
     }

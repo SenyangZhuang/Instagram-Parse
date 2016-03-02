@@ -29,9 +29,28 @@ class LoginViewController: UIViewController {
             if let error = error {
                 print("User login failed.")
                 print(error.localizedDescription)
+
+           
             } else {
                 print("User logged in successfully")
-                self.performSegueWithIdentifier("loginSegue", sender: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                var window: UIWindow?
+                
+                let photoViewNavigationController = storyboard.instantiateViewControllerWithIdentifier("loginNavigationController") as! UINavigationController
+                
+                let uploadPhotoViewNavigationController = storyboard.instantiateViewControllerWithIdentifier("uploadPhotoNavigationController") as! UINavigationController
+                
+                let tabBarController = UITabBarController()
+                tabBarController.viewControllers = [photoViewNavigationController, uploadPhotoViewNavigationController]
+                photoViewNavigationController.tabBarItem.title = "Home"
+                uploadPhotoViewNavigationController.tabBarItem.title = "Upload"
+                photoViewNavigationController.tabBarItem.image = UIImage(named: "home")
+                uploadPhotoViewNavigationController.tabBarItem.image = UIImage(named: "camera")
+                 window?.makeKeyAndVisible()
+                window?.rootViewController = tabBarController
+                
+                self.presentViewController(tabBarController, animated: true, completion: nil)
+                //self.performSegueWithIdentifier("loginSegue", sender: nil)
                 // display view controller that needs to shown after successful login
             }
         }
@@ -68,13 +87,14 @@ class LoginViewController: UIViewController {
     }
     
 
-    /*
+   /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+        
+        }
     }
     */
 
