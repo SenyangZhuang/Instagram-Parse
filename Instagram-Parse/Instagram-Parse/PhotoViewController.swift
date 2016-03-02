@@ -22,7 +22,9 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         tableView.delegate = self
         fetchData()
-       
+        NSNotificationCenter.defaultCenter().addObserverForName("userDidPostNewPhotos", object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) -> Void in
+            self.fetchData()
+        }
        
         
         

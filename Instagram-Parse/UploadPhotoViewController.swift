@@ -61,6 +61,7 @@ class UploadPhotoViewController: UIViewController,UIImagePickerControllerDelegat
                 print("Successfully uploadded an image")
                 self.imageView.image = nil
                 self.captionTextField.text = nil
+                NSNotificationCenter.defaultCenter().postNotificationName("userDidPostNewPhotos", object: nil)
                 self.tabBarController?.selectedIndex = 0
             }else{
                 print(error)
